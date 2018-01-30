@@ -11,7 +11,8 @@ class PMPro_Manage_Multisite {
 	 * @return type
 	 */
 	public static function init() {
-		add_action( 'admin_menu', array( __CLASS__, 'multisite_membership_menu' ) );
+		add_action( 'admin_menu', array( __CLASS__, 'multisite_membership_subsite_menu' ) );
+		add_action( 'network_admin_menu', array( __CLASS__, 'multisite_membership_subsite_menu' ) );
 		add_action( 'admin_enqueue_scripts', array( __CLASS__, 'select_site_load_scripts' ) );
 		add_action( 'wp_ajax_select_site_get_results', array( __CLASS__, 'select_site_ajax' ) );
 		add_action( 'wp_before_admin_bar_render', array( __CLASS__, 'remove_adminbar' ), 999 );
@@ -52,6 +53,22 @@ class PMPro_Manage_Multisite {
 	 * @return [type] [description]
 	 */
 	public static function multisite_membership_page() {
+		global $wpdb;
+		self::membership_header();
+		?>
+		<div class="wrap">
+		<h2><?php _e( 'PMPro Multisite Membership', 'pmpro-multisite-membership' ); ?></h2>
+		<p>You have activated the <strong>Multisite Membership Add On</strong> on this site, which means that you will be using PMPro settings from another site in your Network to control site access.</p>
+		<?php
+
+	}
+
+	/**
+	 * [multisite_membership_subsite_page description]
+	 *
+	 * @return [type] [description]
+	 */
+	public static function multisite_membership_subsite_page() {
 		global $wpdb;
 		self::membership_header();
 		?>
@@ -153,6 +170,17 @@ class PMPro_Manage_Multisite {
 	 */
 	public static function multisite_membership_menu() {
 		add_menu_page( __( 'Memberships', 'pmpro-multisite-membership' ), __( 'Memberships', 'pmpro-multisite-membership' ), 'manage_options', 'pmpro-multisite-membership.php', array( 'PMPro_Manage_Multisite', 'multisite_membership_page' ), 'dashicons-groups' );
+		// add_submenu_page( __( 'pmpro-multisite-membership.php', 'Multisite Memberships', 'pmpro-multisite-membership' ), __( 'Multisite Memberships', 'pmpro-multisite-membership' ), 'manage_options', 'pmpro-multisite-membership.php', array( 'PMPro_Manage_Multisite', 'multisite_membership_page' ) );
+		// add_submenu_page( 'pmpro-membershiplevels', __( 'Multisite Codes', 'paid-memberships-pro' ), __( 'Multisite Codes', 'paid-memberships-pro' ), 'pmpro_discountcodes1', 'pmpro-discountcodes1', 'pmpro_discountcodes1' );
+	}
+
+	/**
+	 * [multisite_membership_subsite_menu description]
+	 *
+	 * @return [type] [description]
+	 */
+	public static function multisite_membership_subsite_menu() {
+		add_menu_page( __( 'Memberships', 'pmpro-multisite-membership' ), __( 'Memberships', 'pmpro-multisite-membership' ), 'manage_options', 'pmpro-multisite-membership.php', array( 'PMPro_Manage_Multisite', 'multisite_membership_subsite_page' ), 'dashicons-groups' );
 	}
 
 	/**
