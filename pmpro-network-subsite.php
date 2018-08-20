@@ -1,15 +1,15 @@
 <?php
 /**
- * Plugin Name: Paid Memberships Pro - Multisite Membership Add On
+ * Plugin Name: Paid Memberships Pro - Multisite Membership ++
  * Plugin URI: https://www.paidmembershipspro.com/add-ons/pmpro-multisite-membership/
  * Description: Manage memberships at the network’s main site (the primary domain of the network) and provide/restrict access on subsites in the network.
  * Version: .4.3
  * Author: Stranger Studios
- * Author URI: http://www.strangerstudios.com
+ * Author URI: https://www.strangerstudios.com
  * Text-domain: pmpro-multisite-membership
  */
 
-/** 
+/**
  * Get the Main DB Prefix
  *
  * Thanks, Bainternet on Stack Exchange for the code to grab the DB prefix for the current site:
@@ -18,13 +18,13 @@
 function pmpro_multisite_membership_get_main_db_prefix() {
 	$main_db_prefix = get_site_option( 'pmpro_multisite_membership_main_db_prefix' );
 
-	if( empty( $main_db_prefix ) ) {
+	if ( empty( $main_db_prefix ) ) {
 		// checking if they used this constant for backwards compatability
-		if( defined( 'PMPRO_NETWORK_MAIN_DB_PREFIX' ) ) {
-			$main_db_prefix = PMPRO_NETWORK_MAIN_DB_PREFIX . '_';		//when we used constants, the trailing _ wasn't included
+		if ( defined( 'PMPRO_NETWORK_MAIN_DB_PREFIX' ) ) {
+			$main_db_prefix = PMPRO_NETWORK_MAIN_DB_PREFIX . '_';       // when we used constants, the trailing _ wasn't included
 		} else {
 			global $wpdb, $current_site;
-			$main_db_prefix = $wpdb->get_blog_prefix( $wpdb->get_var( $wpdb->prepare ( "SELECT blogs.blog_id FROM $wpdb->blogs blogs WHERE blogs.domain = '%s' AND blogs.path = '%s' ORDER BY blogs.blog_id ASC LIMIT 1", $current_site->domain, $current_site->path ) ) );
+			$main_db_prefix = $wpdb->get_blog_prefix( $wpdb->get_var( $wpdb->prepare( "SELECT blogs.blog_id FROM $wpdb->blogs blogs WHERE blogs.domain = '%s' AND blogs.path = '%s' ORDER BY blogs.blog_id ASC LIMIT 1", $current_site->domain, $current_site->path ) ) );
 		}
 		update_site_option( 'pmpro_multisite_membership_main_db_prefix', $main_db_prefix );
 	}

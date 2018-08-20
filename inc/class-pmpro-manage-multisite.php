@@ -13,6 +13,15 @@ class PMPro_Manage_Multisite {
 		add_action( 'admin_menu', array( __CLASS__, 'add_admin_menu' ) );
 		add_filter( 'pmpro_is_ready', '__return_true' );
 		add_action( 'wp_before_admin_bar_render', array( __CLASS__, 'remove_admin_bar' ), 999 );
+
+	}
+
+	/**
+	 * Add menu page linking to settings for this add on.
+	 */
+	public static function dev_admin_stuff() {
+			$main_db_prefix = get_site_option( 'pmpro_multisite_membership_main_db_prefix' );
+
 	}
 
 	/**
